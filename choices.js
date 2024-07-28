@@ -13,10 +13,10 @@ if(query.match(/0/)) query = convert(query)
 // query = '.1......5..628...9.9...64..5..8..7...3..54......6.1...49...6..7...8..6...6.23...4' // difficult
 // query = '.475..9....1....4...24...15.3........527.418........9.27...13...6....2....1..457.' // diabolical
 
-search(null,query,'start')
+
+dot.digraph(() => search(null,query,'start'))
 
 function search(was,here, why) {
-  if(was) dot.rel(was,here)
   const setone = (str, i, ch) => {
     const letters = Array.from(str)
     letters[i] = ch
@@ -35,17 +35,17 @@ function search(was,here, why) {
     else {
       console.error(`%ctrying [${trying[0].i}] = "${trying[0].choice}"`,"color:yellow")
       const lets = Array.from(trying[0].choice)
+      if(was) dot.rel(was,here)
       search(here,setone(there,trying[0].i,lets[0]),`[${trying[0].i}] = ${lets[0]}`)
       search(here,setone(there,trying[0].i,lets[1]),`[${trying[0].i}] = ${lets[1]}`)
     }
   } else {
     console.error("%csolved","color:green")
-
     if(was) {
-      dot.color(here,'palegreen')
       dot.rel(was,here)
+      dot.color(there,'palegreen')
+      dot.rel(here,there)
     }
-
   }
 }
 

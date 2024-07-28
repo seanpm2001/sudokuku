@@ -12,5 +12,12 @@ const row = [
 
 const quote = here => `"${row.map(row => row.map((x,i) => here[x]).join(" ")).join("\\n")}"`
 
-export const rel = (here,there) => console.log(`${quote(here)} -> ${quote(there)}`)
+export const digraph = gen => {
+  console.log(`digraph {rankdir=LR; node [shape=box,style=filled,fillcolor=bisque]`)
+  gen()
+  console.log(`}`)
+}
+
 export const color = (here,fill) => console.log(`${quote(here)} [fillcolor=${fill}]\n`)
+export const rel = (here,there) => console.log(`${quote(here)} -> ${quote(there)}`)
+export const end = () => console.log(`}`)
