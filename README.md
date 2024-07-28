@@ -85,6 +85,16 @@ The trace is written to standard error with a graphviz dot version of the search
 
 Notice that the upper-left corner in these diagrams is either "." for unknown or  "2" or "3" where "2" is the correct choice.
 
+The choices.js script will read an alternative puzzle description where unknows are represented with "0" and cells are reported in a different oreder.
+Many thanks to Tomas Aschan who has shared with us a 1000 sample puzzles from [Kaggle](https://www.kaggle.com/datasets/rohanrao/sudoku).
+These samples include one solution which we ignore. We can run them all with this shell command:
+
+```
+tail -1000 1000-sudokus.csv | while read p
+  do deno run choices.js $p | pbcopy
+  done
+```
+The script distinguishes the two formats by the presence of "0" characters. We thank Tomas again for offering a Python program that does the necessary conversion which we've mimiced in javascript.
 
 ## history
 
