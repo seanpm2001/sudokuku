@@ -96,6 +96,22 @@ tail -1000 1000-sudokus.csv | while read p
 ```
 The script distinguishes the two formats by the presence of "0" characters. We thank Tomas again for offering a Python program that does the necessary conversion which we've mimiced in javascript.
 
+We can format the trace output as a parenthesized expression representing the search tree.
+Solutions will be represented by asterisks (*) and stuck paths by hyphens (-).
+The tree above would be formatted as `((*)(-))`.
+We provide a script, 1000-sudokus.sh, that solves and formats each sample then counts each unique result showing that near 98% are directly solved by forced moves alone and only a dozen of the puzzles that require choices have only one solution.
+```
+   1 (((-)(-))(*))
+   1 ((*)(((*)((*)(*)))((*)((*)(*)))))
+   1 ((*)((*)(-)))
+   1 ((-)((*)(*)))
+   5 ((-)(*))
+   6 ((*)(*))
+   6 ((*)(-))
+ 979 (*)
+```
+Thanks go to Nick Niemeir who helped me devise and code this compressed format.
+
 ## history
 
 In 2005 I bought a sudoku puzzle book at the airport as I headed out cross-country to Boston.
