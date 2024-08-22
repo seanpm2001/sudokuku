@@ -26,7 +26,7 @@ function search(was,here, why) {
   console.error('search', why)
   const there = choice(here)
   if (there.includes('.')) {
-    const trying = todo(there,2)
+    const trying = todo(there).sort((a,b) => a.choice.length - b.choice.length)
     if (trying.length == 0) {
       console.error('%cstuck','color:red')
       dot.color(here,'pink')
@@ -34,10 +34,10 @@ function search(was,here, why) {
     }
     else {
       console.error(`%ctrying [${trying[0].i}] = "${trying[0].choice}"`,"color:yellow")
-      const lets = Array.from(trying[0].choice)
+      const digits = Array.from(trying[0].choice)
       if(was) dot.rel(was,here)
-      search(here,setone(there,trying[0].i,lets[0]),`[${trying[0].i}] = ${lets[0]}`)
-      search(here,setone(there,trying[0].i,lets[1]),`[${trying[0].i}] = ${lets[1]}`)
+      for(const digit of digits)
+        search(here,setone(there,trying[0].i,digit),`[${trying[0].i}] = ${digit}`)
     }
   } else {
     console.error("%csolved","color:green")
@@ -51,9 +51,9 @@ function search(was,here, why) {
 
 function force(query) {
   const {givens,choices} = rules.apply(query)
-  return givens
-    .map((g,i) => g=='.' ? (choices[i].length==1 ? choices[i] : g) : g)
-    .join('')
+  const i = givens.findIndex((g,i) => g=='.' && choices[i].length==1)
+  if(i>=0) givens[i] = choices[i][0]
+  return givens.join('')
 }
 
 function choice(query) {
@@ -69,9 +69,9 @@ function choice(query) {
   return here
 }
 
-function todo(query, width) {
+function todo(query) {
   const {givens,choices} = rules.apply(query)
   return givens
-    .map((digit,i) => (digit == '.' && choices[i].length == width) ? {i,choice:choices[i]} : null)
+    .map((digit,i) => (digit == '.' && choices[i].length > 1) ? {i,choice:choices[i]} : null)
     .filter(choice => choice != null)
 }

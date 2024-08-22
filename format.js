@@ -18,9 +18,9 @@ for (const line of lines) {
       }
     }
   } else if (line.startsWith('solved')) {
-    out.push('(*)')
+    out.push('*')
   } else if (line.startsWith('stuck')) {
-    out.push('(-)')
+    out.push('-')
 
   }
 }
