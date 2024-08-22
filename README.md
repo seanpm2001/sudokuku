@@ -119,7 +119,7 @@ Gary Goldberg thought my search might be incomplete and devise a [test case](htt
 - Reevaluate the forced moves after each choice, that is, don’t assume all forced moves can be taken at once.
 - Search all of the cases, not just two, but always enumerating the smallest branches first.
 
-With these corrections I find his puzzle has twelve solutions where one branch, the first, is a three-way branch.
+With these corrections I find his puzzle has twelve solutions where one branch where the first is a three-way branch.
 
 ![Solutions](https://github.com/user-attachments/assets/2fce586b-ab37-4389-a968-e067120e40d8)
 
