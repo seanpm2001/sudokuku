@@ -117,7 +117,7 @@ Thanks go to Nick Niemeir who helped me devise and code this compressed format.
 Gary Goldberg thought my search might be incomplete and devise a [test case](https://sudokuku.deno.dev/?269357418341268579758194326.42.73.866.38.47.287.26.43.691725834437186925582943617) that showed two problems which I have resolved with these two adjustments:
 
 - Reevaluate the forced moves after each choice, that is, don’t assume all forced moves can be taken at once.
-- Search all of the cases, not just two, but always enumerating the smallest branches first.
+- Search all of the cases, not just two-way cases, but always enumerating those with fewest branches first.
 
 With these corrections I find his puzzle has twelve solutions where one branch where the first is a three-way branch.
 
