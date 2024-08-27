@@ -1,7 +1,7 @@
 // Sudoku Solver
 // Usage: deno run --allow-net=:8000 --allow-env --watch solve.js
 
-import { Octokit, App } from "https://cdn.skypack.dev/octokit?dts";
+// import { Octokit, App } from "https://cdn.skypack.dev/octokit?dts";
 import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
 
 serve((request) => handle(request))
@@ -12,7 +12,7 @@ function handle(request) {
   let routes = {
     "/favicon.ico": flag,
     "/new": random,
-    "/save": save,
+    // "/save": save,
     "/choices": choices,
     "/": solve
   }
@@ -51,20 +51,20 @@ function random(search, origin) {
   return Response.redirect(origin + chosen, 302)
 }
 
-async function save(search) {
-  console.log('save', search)
-  const skey = Deno.env.get('SKEY')
-  const octokit = new Octokit({ auth:skey });
-  const {data:{ login }} = await octokit.rest.users.getAuthenticated();
-  const result = await octokit.rest.issues.createComment({
-    owner: login,
-    repo: "postmatic",
-    issue_number: 1,
-    body: `https://sudokuku.deno.dev/${search}`
-  });
-  console.log('github rate limit remaining', result.headers["x-ratelimit-remaining"])
-  return new Response('ok', {status:200})
-}
+// async function save(search) {
+//   console.log('save', search)
+//   const skey = Deno.env.get('SKEY')
+//   const octokit = new Octokit({ auth:skey });
+//   const {data:{ login }} = await octokit.rest.users.getAuthenticated();
+//   const result = await octokit.rest.issues.createComment({
+//     owner: login,
+//     repo: "postmatic",
+//     issue_number: 1,
+//     body: `https://sudokuku.deno.dev/${search}`
+//   });
+//   console.log('github rate limit remaining', result.headers["x-ratelimit-remaining"])
+//   return new Response('ok', {status:200})
+// }
 
 function choices(search) {
   return new Response('bulk text to go here', {status:200})
@@ -226,7 +226,6 @@ function solve(search) {
       <center>
       <h1>Sudoku Solver<br>
       <button onclick="location.href='/new'+location.search">new puzzle</button>
-      <button onclick="dosave(event)">save puzzle</button>
       </h1>
       ${board}
       <p><button onclick="location.href='/?${nextForced()}'">forced moves</button>
